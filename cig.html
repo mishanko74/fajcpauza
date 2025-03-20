@@ -25,9 +25,14 @@
     <div class="breaks-list my-8 p-8 border-2 border-green-600 rounded-lg bg-white shadow-lg max-w-md mx-auto">
         <h2 class="text-green-600 mb-4">Dnesne prestavky</h2>
         <ul class="list-none p-0">
-            <li class="text-xl my-2">8:45 - 8:55</li>
+            <li class="text-xl my-2">8:40 - 8:50</li>
             <li class="text-xl my-2">9:35 - 9:45</li>
             <li class="text-xl my-2">10:30 - 10:45</li>
+            <li class="text-xl my-2">11:30 - 11:40</li>
+            <li class="text-xl my-2">12:25 - 12:55</li>
+            <li class="text-xl my-2">13:40 - 13:45</li>
+            <li class="text-xl my-2">14:30 - 14:35</li>
+            <li class="text-xl my-2">15:20 - 15:30</li>
         </ul>
     </div>
     <div class="ads my-8 p-8 border-2 border-green-600 rounded-lg bg-white shadow-lg max-w-md mx-auto">
@@ -49,14 +54,29 @@
             }
             
             const breaks = [
-                { hour: 8, minute: 45, duration: 10 },
+                { hour: 8, minute: 40, duration: 10 },
                 { hour: 9, minute: 35, duration: 10 },
-                { hour: 10, minute: 30, duration: 15 }
+                { hour: 10, minute: 30, duration: 15 },
+                { hour: 11, minute: 30, duration: 10 },
+                { hour: 12, minute: 25, duration: 30 },
+                { hour: 13, minute: 40, duration: 5 },
+                { hour: 14, minute: 30, duration: 5 },
+                { hour: 15, minute: 20, duration: 10 }
             ];
             
-            for (let b of breaks) {
+            const lastHour = {
+                1: 8, // Monday
+                2: 7, // Tuesday
+                3: 8, // Wednesday
+                4: 6, // Thursday
+                5: 4  // Friday
+            };
+            
+            const lastBreakIndex = lastHour[day] - 1;
+            
+            for (let i = 0; i <= lastBreakIndex; i++) {
                 let breakTime = new Date();
-                breakTime.setHours(b.hour, b.minute, 0, 0);
+                breakTime.setHours(breaks[i].hour, breaks[i].minute, 0, 0);
                 if (now < breakTime) {
                     startCountdown(breakTime);
                     return;
